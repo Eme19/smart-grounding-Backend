@@ -21,16 +21,21 @@ def read_root():
 def read_item(item_id: int):
     return {"item_id": item_id}
 
-allowed_origins = ["https://smart-grounding-frontend.vercel.app"]
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import os
 
+app = FastAPI()
 
+# Allow all origins for testing
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],  # Allows all origins for testing. You can later restrict this.
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
+
 
 class SensorData(BaseModel):
     timestamp: str
