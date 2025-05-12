@@ -27,12 +27,13 @@ import os
 
 app = FastAPI()
 
-# Allow all origins for testing
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")  # Split in case you have multiple origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins for testing. You can later restrict this.
+    allow_origins=allowed_origins,  # Using the ALLOWED_ORIGINS variable here
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
 )
 
