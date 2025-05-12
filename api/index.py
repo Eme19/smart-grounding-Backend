@@ -27,11 +27,11 @@ import os
 
 app = FastAPI()
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")  # Split in case you have multiple origins
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")  # Split in case of multiple origins
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,  # Using the ALLOWED_ORIGINS variable here
+    allow_origins=allowed_origins,  # ALLOWED_ORIGINS variable 
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
