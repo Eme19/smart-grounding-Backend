@@ -21,7 +21,8 @@ def read_root():
 def read_item(item_id: int):
     return {"item_id": item_id}
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "https://smart-grounding-frontend.vercel.app, https://another-origin.com").split(",")
+allowed_origins = ["https://smart-grounding-frontend.vercel.app"]
+
 
 app.add_middleware(
     CORSMiddleware,
