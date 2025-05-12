@@ -73,7 +73,6 @@
 
 
 
-
 # api/index.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -82,11 +81,18 @@ from typing import List
 from datetime import datetime
 import random, threading, time, os
 from dotenv import load_dotenv
-from vercel_wsgi import make_lambda_handler
 
 load_dotenv()
 
 app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello, world!"}
+
+@app.get("/api/{item_id}")
+def read_item(item_id: int):
+    return {"item_id": item_id}
 
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 
@@ -130,6 +136,3 @@ def background_data_generator():
         time.sleep(1)
 
 threading.Thread(target=background_data_generator, daemon=True).start()
-
-# This makes FastAPI compatible with Vercel
-handler = make_lambda_handler(app)
